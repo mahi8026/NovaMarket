@@ -1,0 +1,8 @@
+node_modules/
+coverage/
+dist/
+build/
+*.config.js
+*.config.mjs
+.env
+.env.*
