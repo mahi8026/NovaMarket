@@ -3,7 +3,7 @@ import { getCurrentUser } from "@/lib/auth";
 import { auth } from "@/auth";
 
 /**
- * Middleware for route protection in Nova Marketplace
+ * Proxy for route protection in Nova Marketplace
  * Handles authentication checks and redirects for protected routes
  * Supports both NextAuth.js sessions and cookie-based authentication
  */
@@ -71,10 +71,10 @@ function isPublicRoute(pathname) {
   });
 }
 
-export async function middleware(request) {
+export default async function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  // Skip middleware for static files and Next.js internals
+  // Skip proxy for static files and Next.js internals
   if (
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/api/") ||
@@ -131,7 +131,7 @@ export async function middleware(request) {
   return NextResponse.next();
 }
 
-// Configure which paths the middleware should run on
+// Configure which paths the proxy should run on
 export const config = {
   matcher: [
     /*
