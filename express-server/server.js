@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -18,7 +20,15 @@ const {
   closeRedis,
   isConnected: isRedisConnected,
 } = require("./cache");
-require("dotenv").config();
+
+// Initialize Stripe only if API key is provided
+let stripe = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+  console.log("✅ Stripe initialized");
+} else {
+  console.log("⚠️  Stripe not configured - payment features disabled");
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -380,6 +390,83 @@ app.use((err, req, res, _next) => {
     error: "Internal server error",
     message: err.message,
   });
+});
+
+// Stripe Checkout Session
+app.post("/api/create-checkout-session", writeLimiter, async (req, res) => {
+  try {
+    // Check if Stripe is configured
+    if (!stripe) {
+      return res.status(503).json({
+        error: "Payment service unavailable",
+        message:
+          "Stripe is not configured. Please add STRIPE_SECRET_KEY to your .env file.",
+      });
+    }
+
+    const { items, shippingInfo, total } = req.body;
+
+    if (!items || items.length === 0) {
+      return res.status(400).json({ error: "No items in cart" });
+    }
+
+    // Create line items for Stripe
+    const lineItems = items.map((item) => ({
+      price_data: {
+        currency: "usd",
+        product_data: {
+          name: item.name,
+          description: item.description,
+          images: [item.image],
+        },
+        unit_amount: Math.round(item.price * 100), // Convert to cents
+      },
+      quantity: item.quantity || 1,
+    }));
+
+    // Add shipping as a line item if applicable
+    if (shippingInfo.shippingMethod === "priority") {
+      lineItems.push({
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: "Priority Shipping",
+            description: "Delivered within 24-48 hours",
+          },
+          unit_amount: 1500, // $15.00
+        },
+        quantity: 1,
+      });
+    }
+
+    // Create Stripe checkout session
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url: `${
+        process.env.FRONTEND_URL || "http://localhost:3000"
+      }/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${
+        process.env.FRONTEND_URL || "http://localhost:3000"
+      }/checkout/cancel`,
+      customer_email: shippingInfo.email,
+      metadata: {
+        shippingName: shippingInfo.fullName,
+        shippingAddress: shippingInfo.address,
+        shippingCity: shippingInfo.city,
+        shippingPostalCode: shippingInfo.postalCode,
+      },
+    });
+
+    res.json({ url: session.url });
+  } catch (err) {
+    console.error("Stripe error:", err);
+    res.status(500).json({
+      error: "Payment processing failed",
+      message: err.message,
+    });
+  }
 });
 
 // 404 handler

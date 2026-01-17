@@ -2,15 +2,53 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function ProductDetails({ product }) {
   const router = useRouter();
+  const [addedToCart, setAddedToCart] = useState(false);
 
   if (!product) {
     return null;
   }
 
   const { id, name, description, price, image, createdAt } = product;
+
+  const handleAddToCart = () => {
+    // Get existing cart from localStorage
+    const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Check if product already exists in cart
+    const existingItemIndex = existingCart.findIndex((item) => item.id === id);
+
+    if (existingItemIndex > -1) {
+      // Increment quantity if exists
+      existingCart[existingItemIndex].quantity =
+        (existingCart[existingItemIndex].quantity || 1) + 1;
+    } else {
+      // Add new item
+      existingCart.push({
+        id,
+        name,
+        description,
+        price,
+        image,
+        quantity: 1,
+      });
+    }
+
+    // Save to localStorage
+    localStorage.setItem("cart", JSON.stringify(existingCart));
+
+    // Show feedback
+    setAddedToCart(true);
+    setTimeout(() => setAddedToCart(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    handleAddToCart();
+    setTimeout(() => router.push("/checkout"), 300);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 py-12">
@@ -152,7 +190,10 @@ export default function ProductDetails({ product }) {
 
               {/* Action Buttons */}
               <div className="space-y-3">
-                <button className="w-full bg-gradient-to-r from-primary-600 to-accent-purple text-white px-6 py-4 rounded-xl hover:shadow-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group">
+                <button
+                  onClick={handleBuyNow}
+                  className="w-full bg-gradient-to-r from-primary-600 to-accent-purple text-white px-6 py-4 rounded-xl hover:shadow-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group"
+                >
                   <svg
                     className="w-6 h-6 group-hover:scale-110 transition-transform"
                     fill="none"
@@ -163,26 +204,54 @@ export default function ProductDetails({ product }) {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                      d="M13 10V3L4 14h7v7l9-11h-7z"
                     />
                   </svg>
-                  Add to Cart
+                  Buy Now
                 </button>
-                <button className="w-full bg-white border-2 border-slate-300 text-slate-700 px-6 py-4 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group">
-                  <svg
-                    className="w-6 h-6 group-hover:scale-110 transition-transform"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                    />
-                  </svg>
-                  Add to Wishlist
+                <button
+                  onClick={handleAddToCart}
+                  className={`w-full ${
+                    addedToCart
+                      ? "bg-green-600"
+                      : "bg-white border-2 border-slate-300"
+                  } text-slate-700 px-6 py-4 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group`}
+                >
+                  {addedToCart ? (
+                    <>
+                      <svg
+                        className="w-6 h-6 text-white"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M5 13l4 4L19 7"
+                        />
+                      </svg>
+                      <span className="text-white">Added to Cart!</span>
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        className="w-6 h-6 group-hover:scale-110 transition-transform"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                        />
+                      </svg>
+                      Add to Cart
+                    </>
+                  )}
                 </button>
               </div>
             </div>

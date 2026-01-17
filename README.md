@@ -8,6 +8,8 @@ A modern, full-stack e-commerce marketplace built with Next.js 15, Express.js, a
 - 🔐 Authentication with NextAuth.js (Email + Google OAuth)
 - 📦 Product management (CRUD operations)
 - 🖼️ Image upload with imgbb.com
+- 💳 **Stripe Payment Integration** - Secure checkout process
+- 🛒 Shopping cart with localStorage
 - 💾 MongoDB Atlas cloud database
 - 📱 Fully responsive design
 - 🎯 Toast notifications
@@ -127,8 +129,9 @@ Password: admin123
 - [Setup Guide](docs/SETUP.md) - Detailed installation and configuration
 - [API Documentation](docs/API.md) - Backend API endpoints
 - [Features Guide](docs/FEATURES.md) - Complete feature list
+- [Payment Integration](docs/PAYMENT_INTEGRATION.md) - **NEW!** Stripe checkout setup
 - [Troubleshooting](docs/TROUBLESHOOTING.md) - Common issues and solutions
-- [Performance Optimizations](docs/PERFORMANCE_OPTIMIZATIONS.md) - **NEW!** Image optimization, rate limiting, caching
+- [Performance Optimizations](docs/PERFORMANCE_OPTIMIZATIONS.md) - Image optimization, rate limiting, caching
 
 ## 🛠️ Tech Stack
 
