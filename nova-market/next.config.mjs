@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Ensure proper routing
-  trailingSlash: false,
+  /* config options here */
+  reactCompiler: true,
 
   // Image optimization configuration
   images: {
