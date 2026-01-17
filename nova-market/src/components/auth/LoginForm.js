@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import SparkleButton from "@/components/ui/SparkleButton";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -132,11 +133,7 @@ export default function LoginForm() {
           </div>
         )}
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-gradient-to-r from-primary-600 to-accent-purple text-white py-3 px-4 rounded-xl font-semibold hover:shadow-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
+        <SparkleButton type="submit" disabled={isLoading} className="w-full">
           {isLoading ? (
             <>
               <svg
@@ -163,7 +160,7 @@ export default function LoginForm() {
           ) : (
             "Sign In"
           )}
-        </button>
+        </SparkleButton>
       </form>
 
       {/* Google OAuth Section */}

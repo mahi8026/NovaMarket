@@ -2,41 +2,29 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  FaShoppingBag,
-  FaHeart,
-  FaStar,
-  FaArrowRight,
-  FaCheckCircle,
-  FaBolt,
-  FaUsers,
-  FaTrophy,
-  FaRocket,
-  FaShieldAlt,
-  FaGift,
-  FaCrown,
-  FaFire,
-  FaThumbsUp,
-} from "react-icons/fa";
-import {
-  MdVerified,
-  MdLocalShipping,
-  MdFlashOn,
-  MdTrendingUp,
-} from "react-icons/md";
+import { FaBolt, FaTrophy, FaShieldAlt, FaCrown, FaFire } from "react-icons/fa";
+import { MdTrendingUp } from "react-icons/md";
 import { useState, useEffect } from "react";
+import SparkleButton from "@/components/ui/SparkleButton";
+import Marquee from "@/components/ui/Marquee";
 
 export default function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
+    // Use a timeout to avoid synchronous setState in effect
+    const timer = setTimeout(() => setMounted(true), 0);
+
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
   }, []);
 
   return (
@@ -69,7 +57,7 @@ export default function Home() {
       )}
 
       {/* Hero Section with 3D Elements */}
-      <section className="relative pt-[72px] min-h-screen flex items-center overflow-hidden">
+      <section className="relative pt-[72px] min-h-screen flex items-center overflow-hidden text-white">
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-95"></div>
@@ -156,11 +144,11 @@ export default function Home() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4 }}
               >
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tight mb-6">
-                  <span className="block bg-gradient-to-r from-white via-pink-200 to-purple-200 bg-clip-text text-transparent">
-                    a
+                <h1 className="text-6xl md:text-7xl lg:text-8xl flex gap-10 font-black leading-[0.9] tracking-tight mb-6">
+                  <span className="block bg-linear-to-r from-white via-pink-200 to-purple-200 bg-clip-text text-transparent">
+                    A
                   </span>
-                  <span className="block bg-gradient-to-r from-purple-300 via-pink-300 to-orange-300 bg-clip-text text-transparent">
+                  <span className="block bg-linear-to-r from-purple-300 via-pink-300 to-orange-300 bg-clip-text text-transparent">
                     Market
                   </span>
                 </h1>
@@ -182,7 +170,7 @@ export default function Home() {
                 that transform your lifestyle.
               </motion.p>
 
-              {/* CTA Buttons with Hover Effects */}
+              {/* CTA Buttons with Sparkle Effects */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -193,21 +181,8 @@ export default function Home() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link
-                    href="/items"
-                    className="group relative px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold rounded-2xl overflow-hidden shadow-2xl"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="relative flex items-center gap-3">
-                      <FaRocket className="text-xl" />
-                      Explore Now
-                      <motion.div
-                        animate={{ x: [0, 5, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity }}
-                      >
-                        <FaArrowRight />
-                      </motion.div>
-                    </div>
+                  <Link href="/items">
+                    <SparkleButton>Explore Now</SparkleButton>
                   </Link>
                 </motion.div>
 
@@ -241,7 +216,7 @@ export default function Home() {
                 >
                   <img
                     alt="Premium tech products"
-                    className="rounded-2xl shadow-2xl max-w-md w-full object-cover aspect-[4/3]"
+                    className="rounded-2xl shadow-2xl max-w-md w-full object-cover aspect-4/3"
                     src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80"
                   />
 
@@ -301,36 +276,56 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Animated Brand Ticker */}
-      <section className="py-8 bg-white/5 backdrop-blur-sm border-y border-white/10">
+      {/* Animated Brand Marquee */}
+      <section className="py-8 bg-black/5 backdrop-blur-sm border-y border-white/10">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex justify-between items-center gap-8 overflow-x-auto"
           >
-            {["SONY", "APPLE", "SAMSUNG", "LOGITECH", "BOSE", "DELL"].map(
-              (brand, index) => (
-                <motion.div
+            <Marquee speed="normal" pauseOnHover={true}>
+              {[
+                "SONY",
+                "APPLE",
+                "SAMSUNG",
+                "LOGITECH",
+                "BOSE",
+                "DELL",
+                "MICROSOFT",
+                "GOOGLE",
+                "AMAZON",
+                "TESLA",
+              ].map((brand) => (
+                <div
                   key={brand}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 0.6, y: 0 }}
-                  whileHover={{ opacity: 1, scale: 1.1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-2xl font-bold text-white/60 hover:text-white transition-all duration-300 cursor-pointer"
+                  className="text-3xl font-bold text-black/60 hover:text-blue-400 transition-all duration-300 cursor-pointer whitespace-nowrap px-8"
                 >
                   {brand}
-                </motion.div>
-              )
-            )}
+                </div>
+              ))}
+            </Marquee>
           </motion.div>
         </div>
       </section>
 
       {/* Creative Features Section */}
-      <section className="py-32 bg-gradient-to-b from-slate-900 to-gray-900 relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-b from-slate-900 to-gray-900 relative overflow-hidden text-white">
+        {/* Enhanced Background Effects */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/4 left-1/4 w-96 h-96 border border-white/5 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-1/4 right-1/4 w-64 h-64 border border-purple-300/10 rounded-full"
+          />
+        </div>
+
         <div className="container mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -338,10 +333,10 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+            <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent drop-shadow-2xl">
               Why Choose Us?
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
               Experience shopping like never before with our revolutionary
               platform
             </p>
@@ -350,7 +345,7 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                icon: <FaBolt className="text-4xl" />,
+                icon: <FaBolt className="text-4xl text-white" />,
                 title: "Lightning Fast",
                 description:
                   "Blazing fast performance with cutting-edge technology",
@@ -358,14 +353,14 @@ export default function Home() {
                 delay: 0.1,
               },
               {
-                icon: <FaShieldAlt className="text-4xl" />,
+                icon: <FaShieldAlt className="text-4xl text-white" />,
                 title: "Ultra Secure",
                 description: "Bank-level security protecting every transaction",
                 gradient: "from-green-400 to-emerald-500",
                 delay: 0.2,
               },
               {
-                icon: <FaTrophy className="text-4xl" />,
+                icon: <FaTrophy className="text-4xl text-white" />,
                 title: "Premium Quality",
                 description:
                   "Curated selection of the finest products worldwide",
@@ -382,7 +377,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: feature.delay }}
                 className="group relative"
               >
-                <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-white/10 rounded-3xl p-8 h-full">
+                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 h-full shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
                   <motion.div
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.6 }}
@@ -390,10 +385,10 @@ export default function Home() {
                   >
                     {feature.icon}
                   </motion.div>
-                  <h3 className="text-2xl font-bold mb-4 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent group-hover:from-blue-200 group-hover:to-purple-200 bg-clip-text transition-all duration-300">
+                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-blue-200 group-hover:to-purple-200 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                     {feature.title}
                   </h3>
-                  <p className="text-gray-300 leading-relaxed">
+                  <p className="text-white/80 leading-relaxed font-medium">
                     {feature.description}
                   </p>
                 </div>
@@ -403,8 +398,126 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Testimonials Marquee */}
+      <section className="py-16 bg-gradient-to-r from-purple-900/20 to-pink-900/20 overflow-hidden">
+        <div className="mb-8 text-center">
+          <h3 className="text-3xl font-bold text-white mb-4">
+            What Our Customers Say
+          </h3>
+        </div>
+
+        {/* First row - normal direction */}
+        <div className="mb-8">
+          <Marquee speed="slow" pauseOnHover={true}>
+            {[
+              {
+                text: "Amazing quality products! Fast shipping and excellent customer service.",
+                author: "Sarah M.",
+              },
+              {
+                text: "Best marketplace I've ever used. The interface is so smooth and modern.",
+                author: "John D.",
+              },
+              {
+                text: "Found exactly what I was looking for. Great prices and authentic products.",
+                author: "Emily R.",
+              },
+              {
+                text: "Outstanding experience from start to finish. Highly recommended!",
+                author: "Michael B.",
+              },
+              {
+                text: "The product quality exceeded my expectations. Will definitely shop again.",
+                author: "Lisa K.",
+              },
+            ].map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-[350px] border border-white/20"
+              >
+                <p className="text-white/90 mb-3 italic">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <p className="text-purple-300 font-semibold">
+                  - {testimonial.author}
+                </p>
+              </div>
+            ))}
+          </Marquee>
+        </div>
+
+        {/* Second row - reverse direction */}
+        <div>
+          <Marquee speed="slow" reverse={true} pauseOnHover={true}>
+            {[
+              {
+                text: "Incredible selection and unbeatable prices. Love this platform!",
+                author: "David W.",
+              },
+              {
+                text: "Seamless shopping experience with beautiful design. 5 stars!",
+                author: "Anna S.",
+              },
+              {
+                text: "Fast delivery and products exactly as described. Perfect!",
+                author: "Chris L.",
+              },
+              {
+                text: "User-friendly interface and excellent customer support team.",
+                author: "Maria G.",
+              },
+              {
+                text: "Premium quality products at competitive prices. Fantastic!",
+                author: "Robert H.",
+              },
+            ].map((testimonial, index) => (
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-[350px] border border-white/20"
+              >
+                <p className="text-white/90 mb-3 italic">
+                  &ldquo;{testimonial.text}&rdquo;
+                </p>
+                <p className="text-pink-300 font-semibold">
+                  - {testimonial.author}
+                </p>
+              </div>
+            ))}
+          </Marquee>
+        </div>
+      </section>
+
+      {/* Stats Marquee */}
+      <section className="py-12 bg-black/20">
+        <Marquee speed="fast" pauseOnHover={false}>
+          {[
+            { icon: "🚀", stat: "50K+", label: "Happy Customers" },
+            { icon: "⭐", stat: "4.9/5", label: "Average Rating" },
+            { icon: "📦", stat: "100K+", label: "Products Sold" },
+            { icon: "🌍", stat: "50+", label: "Countries Served" },
+            { icon: "💎", stat: "99.9%", label: "Customer Satisfaction" },
+            { icon: "🔥", stat: "24/7", label: "Customer Support" },
+            { icon: "⚡", stat: "2-Day", label: "Fast Delivery" },
+            { icon: "🛡️", stat: "100%", label: "Secure Payments" },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-4 text-white px-8 whitespace-nowrap"
+            >
+              <span className="text-3xl">{item.icon}</span>
+              <div>
+                <div className="text-2xl font-bold text-purple-300">
+                  {item.stat}
+                </div>
+                <div className="text-sm text-white/70">{item.label}</div>
+              </div>
+            </div>
+          ))}
+        </Marquee>
+      </section>
+
       {/* Final CTA */}
-      <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden">
+      <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden text-white">
         {/* Static Particles - No Math.random() */}
         {mounted && (
           <div className="absolute inset-0">
@@ -477,21 +590,10 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link
-                  href="/items"
-                  className="group relative px-12 py-6 bg-gradient-to-r from-pink-500 to-purple-600 text-white font-bold text-xl rounded-2xl overflow-hidden shadow-2xl"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="relative flex items-center gap-4">
-                    <FaRocket className="text-2xl" />
+                <Link href="/items">
+                  <SparkleButton className="text-xl text-white px-12 py-6">
                     Start Shopping Now
-                    <motion.div
-                      animate={{ x: [0, 10, 0] }}
-                      transition={{ duration: 2, repeat: Infinity }}
-                    >
-                      <FaArrowRight className="text-xl" />
-                    </motion.div>
-                  </div>
+                  </SparkleButton>
                 </Link>
               </motion.div>
 

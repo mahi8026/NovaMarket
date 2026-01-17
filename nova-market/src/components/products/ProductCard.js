@@ -72,7 +72,7 @@ export default function ProductCard({ product, index = 0 }) {
           Product
         </div>
 
-        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-primary transition-colors line-clamp-2">
+        <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors line-clamp-2">
           {name || "Unnamed Product"}
         </h3>
 
@@ -82,13 +82,13 @@ export default function ProductCard({ product, index = 0 }) {
 
         {/* Price and Action */}
         <div className="mt-auto flex items-center justify-between">
-          <span className="font-mono text-xl font-bold text-primary tracking-tight">
+          <span className="font-mono text-xl font-bold text-blue-600 tracking-tight">
             ${typeof price === "number" ? price.toFixed(2) : "0.00"}
           </span>
 
           <Link
             href={`/items/${id}`}
-            className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-700 active:scale-95 transition-all group/btn"
+            className="flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 active:scale-95 transition-all group/btn"
           >
             <span className="text-sm font-semibold">View</span>
             <FaArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

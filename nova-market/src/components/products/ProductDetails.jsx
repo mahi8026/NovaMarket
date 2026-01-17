@@ -51,12 +51,12 @@ export default function ProductDetails({ product }) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 py-12">
+    <div className="product-page min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 py-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Navigation */}
         <button
           onClick={() => router.push("/items")}
-          className="group mb-8 flex items-center text-primary-600 hover:text-primary-700 transition-colors duration-200 font-medium"
+          className="group mb-8 flex items-center text-blue-600 hover:text-blue-700 transition-colors duration-200 font-medium"
         >
           <svg
             className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform"
@@ -119,7 +119,7 @@ export default function ProductDetails({ product }) {
               </h1>
 
               <div className="mb-8">
-                <div className="inline-block bg-gradient-to-r from-accent-teal to-emerald-600 px-6 py-3 rounded-2xl shadow-lg">
+                <div className="inline-block bg-gradient-to-r from-teal-500 to-emerald-600 px-6 py-3 rounded-2xl shadow-lg">
                   <span className="text-4xl font-bold text-white font-mono">
                     ${typeof price === "number" ? price.toFixed(2) : "0.00"}
                   </span>
@@ -129,7 +129,7 @@ export default function ProductDetails({ product }) {
               <div className="mb-8">
                 <h2 className="text-xl font-bold text-slate-900 mb-3 flex items-center gap-2">
                   <svg
-                    className="w-6 h-6 text-primary-600"
+                    className="w-6 h-6 text-blue-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,7 +152,7 @@ export default function ProductDetails({ product }) {
               <div className="border-t border-slate-200 pt-8 mb-8">
                 <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
                   <svg
-                    className="w-6 h-6 text-primary-600"
+                    className="w-6 h-6 text-blue-600"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -192,7 +192,7 @@ export default function ProductDetails({ product }) {
               <div className="space-y-3">
                 <button
                   onClick={handleBuyNow}
-                  className="w-full bg-gradient-to-r from-primary-600 to-accent-purple text-white px-6 py-4 rounded-xl hover:shadow-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-4 rounded-xl hover:shadow-xl transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group"
                 >
                   <svg
                     className="w-6 h-6 group-hover:scale-110 transition-transform"
@@ -213,9 +213,9 @@ export default function ProductDetails({ product }) {
                   onClick={handleAddToCart}
                   className={`w-full ${
                     addedToCart
-                      ? "bg-green-600"
-                      : "bg-white border-2 border-slate-300"
-                  } text-slate-700 px-6 py-4 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group`}
+                      ? "bg-green-600 text-white"
+                      : "bg-white border-2 border-slate-300 text-slate-900 hover:text-slate-900"
+                  } px-6 py-4 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 font-semibold text-lg flex items-center justify-center gap-2 group`}
                 >
                   {addedToCart ? (
                     <>

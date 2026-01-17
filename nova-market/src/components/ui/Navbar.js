@@ -55,7 +55,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="size-8 bg-primary rounded-lg flex items-center justify-center text-white transition-transform group-hover:scale-110">
+            <div className="size-8 bg-blue-600 rounded-lg flex items-center justify-center text-white transition-transform group-hover:scale-110">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -79,20 +79,20 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-8">
             <Link
               href="/"
-              className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
             >
               Home
             </Link>
             <Link
               href="/items"
-              className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+              className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
             >
               Products
             </Link>
             {isAuthenticated && (
               <Link
                 href="/items/add"
-                className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+                className="text-sm font-medium text-gray-600 hover:text-blue-600 transition-colors"
               >
                 Add Item
               </Link>
@@ -107,7 +107,7 @@ export default function Navbar() {
                   <>
                     <div className="hidden md:flex items-center gap-3">
                       <div className="flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-full">
-                        <div className="size-6 rounded-full bg-primary flex items-center justify-center text-white text-xs font-bold">
+                        <div className="size-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold">
                           {userName.charAt(0).toUpperCase()}
                         </div>
                         <span className="text-sm font-medium text-gray-700">
@@ -120,7 +120,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href="/login"
-                    className="hidden md:flex items-center gap-2 bg-primary hover:bg-primary-dark text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-primary/20"
+                    className="hidden md:flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-lg shadow-blue-600/20"
                   >
                     <svg
                       className="w-4 h-4"
@@ -179,14 +179,14 @@ export default function Navbar() {
             <div className="flex flex-col gap-2">
               <Link
                 href="/"
-                className="text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
+                className="text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 href="/items"
-                className="text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
+                className="text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Products
@@ -197,7 +197,7 @@ export default function Navbar() {
                     <>
                       <Link
                         href="/items/add"
-                        className="text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
+                        className="text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 px-4 py-3 rounded-lg transition-colors"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         Add Item
@@ -211,7 +211,7 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href="/login"
-                      className="bg-primary hover:bg-primary-dark text-white px-4 py-3 rounded-lg text-sm font-semibold transition-all text-center"
+                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-3 rounded-lg text-sm font-semibold transition-all text-center"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Login

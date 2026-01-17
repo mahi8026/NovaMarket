@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Marquee from "./Marquee";
 
 export default function Footer() {
   return (
@@ -160,6 +161,29 @@ export default function Footer() {
               Terms of Service
             </a>
           </div>
+        </div>
+
+        {/* Footer Marquee */}
+        <div className="border-t border-gray-800 pt-8 pb-6">
+          <Marquee speed="normal" pauseOnHover={true}>
+            {[
+              "🚀 Free Shipping on Orders Over $50",
+              "⭐ 30-Day Money Back Guarantee",
+              "🔒 Secure SSL Encrypted Payments",
+              "📞 24/7 Customer Support Available",
+              "🎁 Exclusive Member Discounts",
+              "⚡ Lightning Fast Delivery",
+              "🛡️ Warranty Protection Included",
+              "🌟 Premium Quality Products Only",
+            ].map((text, index) => (
+              <div
+                key={index}
+                className="text-gray-400 font-medium whitespace-nowrap px-8 hover:text-white transition-colors cursor-pointer"
+              >
+                {text}
+              </div>
+            ))}
+          </Marquee>
         </div>
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">

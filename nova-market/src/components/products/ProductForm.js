@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { uploadImage } from "@/lib/imageUpload";
+import SparkleButton from "@/components/ui/SparkleButton";
 
 export default function ProductForm({ onSubmit, isSubmitting = false }) {
   const [formData, setFormData] = useState({
@@ -381,10 +382,10 @@ export default function ProductForm({ onSubmit, isSubmitting = false }) {
       </div>
 
       <div className="pt-4">
-        <button
+        <SparkleButton
           type="submit"
           disabled={isSubmitting || isUploadingImage}
-          className={`w-full bg-gradient-to-r from-primary-600 to-accent-purple text-white px-6 py-4 rounded-xl font-semibold text-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-2 ${
+          className={`w-full text-lg ${
             isSubmitting || isUploadingImage
               ? "opacity-50 cursor-not-allowed"
               : ""
@@ -431,7 +432,7 @@ export default function ProductForm({ onSubmit, isSubmitting = false }) {
               Add Product
             </>
           )}
-        </button>
+        </SparkleButton>
       </div>
     </form>
   );

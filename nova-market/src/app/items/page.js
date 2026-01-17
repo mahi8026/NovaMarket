@@ -48,7 +48,7 @@ export default function ItemsPage() {
             </div>
             <div className="flex items-center gap-4">
               <div className="bg-white/80 backdrop-blur-sm px-6 py-3 rounded-xl border border-slate-200 shadow-sm">
-                <span className="text-2xl font-bold text-primary-600">
+                <span className="text-2xl font-bold text-blue-600">
                   {products.length}
                 </span>
                 <span className="text-slate-600 ml-2">
