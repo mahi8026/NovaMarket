@@ -1,0 +1,20 @@
+# ACTUAL ENVIRONMENT VALUES - DO NOT COMMIT TO GIT
+# Use these values when setting up your Vercel environment variables
+
+# MongoDB Atlas
+MONGODB_URI=mongodb+srv://nova_db:BsHzwMfAaXdHeRIh@cluster0.ocjxb4e.mongodb.net/nova-marketplace?retryWrites=true&w=majority&appName=Cluster0
+
+# Stripe Configuration
+STRIPE_SECRET_KEY=sk_test_51SXD8l8tn2lLlJnkPr7eXSxqx8LTUeinlq2h3yYm8Fb9wK7NnjM06eyNGPv8s5OvUS0I2KxUddiOKY7hWR4UEDbh00bYnOB8gV
+
+# Image Hosting
+NEXT_PUBLIC_IMAGE_HOST_KEY=5fbe3b269af220ef9639c781bec38e5b
+
+# Google OAuth (Optional)
+GOOGLE_CLIENT_ID=848545045654-mttjv8jpccjovcunen62eg67bfroeb93.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=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
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=848545045654-mttjv8jpccjovcunen62eg67bfroeb93.apps.googleusercontent.com
+
+# NextAuth Configuration (you'll need to set these)
+NEXTAUTH_SECRET=your-super-secret-production-key-make-it-long-and-random
+NEXTAUTH_URL=https://your-app-name.vercel.app
