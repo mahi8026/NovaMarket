@@ -43,7 +43,7 @@ export default function CheckoutPage() {
 
   const subtotal = cart.reduce(
     (sum, item) => sum + item.price * (item.quantity || 1),
-    0
+    0,
   );
   const shipping = formData.shippingMethod === "priority" ? 15 : 0;
   const tax = subtotal * 0.08;
@@ -84,7 +84,7 @@ export default function CheckoutPage() {
             shippingInfo: formData,
             total: total,
           }),
-        }
+        },
       );
 
       const { url } = await response.json();
@@ -108,33 +108,52 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800">
       {/* Header */}
-      <header className="sticky top-0 z-50 glass-nav border-b border-slate-200 dark:border-slate-800">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+      <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-primary p-1.5 rounded-lg text-white">
-              <span className="material-symbols-outlined block">diamond</span>
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-xl text-white shadow-lg">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z" />
+              </svg>
             </div>
-            <h1 className="text-lg font-bold tracking-tight">
-              Nova Marketplace
-            </h1>
+            <div>
+              <h1 className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+                Nova Marketplace
+              </h1>
+              <p className="text-xs text-slate-500">Secure Checkout</p>
+            </div>
           </div>
           <div className="flex items-center gap-6">
             <button
               onClick={() => router.push("/items")}
-              className="text-sm font-medium hover:text-primary transition-colors flex items-center gap-2"
+              className="text-sm font-medium text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-2 group"
             >
-              <span className="material-symbols-outlined text-[20px]">
-                shopping_cart
-              </span>
+              <svg
+                className="w-5 h-5 group-hover:-translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                />
+              </svg>
               Back to Shop
             </button>
-            <div className="h-4 w-px bg-slate-200 dark:bg-slate-700"></div>
-            <div className="flex items-center gap-2 text-slate-500 text-sm">
-              <span className="material-symbols-outlined text-[18px]">
-                lock
-              </span>
+            <div className="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+            <div className="flex items-center gap-2 text-emerald-600 text-sm font-medium">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path
+                  fillRule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
               Secure Checkout
             </div>
           </div>
@@ -142,74 +161,127 @@ export default function CheckoutPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-12">
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="flex flex-col lg:flex-row gap-8">
           {/* Left Column: Forms */}
-          <div className="flex-1 space-y-10">
+          <div className="flex-1 space-y-8">
             {/* Progress Stepper */}
-            <div className="flex items-center justify-between max-w-md mx-auto mb-8">
-              <div className="flex flex-col items-center gap-2">
-                <div
-                  className={`size-10 rounded-full ${
-                    step >= 1
-                      ? "bg-primary text-white"
-                      : "bg-slate-200 dark:bg-slate-800"
-                  } flex items-center justify-center font-bold`}
-                >
-                  1
+            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-lg border border-slate-200/50 dark:border-slate-700/50">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col items-center gap-3 flex-1">
+                  <div
+                    className={`relative size-12 rounded-full ${
+                      step >= 1
+                        ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-slate-200 dark:bg-slate-800 text-slate-400"
+                    } flex items-center justify-center font-bold text-lg transition-all duration-300`}
+                  >
+                    {step > 1 ? (
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    ) : (
+                      "1"
+                    )}
+                  </div>
+                  <div className="text-center">
+                    <p
+                      className={`text-xs font-bold uppercase tracking-wider ${
+                        step >= 1 ? "text-blue-600" : "text-slate-400"
+                      }`}
+                    >
+                      Shipping
+                    </p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      Your details
+                    </p>
+                  </div>
                 </div>
-                <span
-                  className={`text-xs font-semibold uppercase tracking-wider ${
-                    step >= 1 ? "text-primary" : "text-slate-400"
-                  }`}
-                >
-                  Shipping
-                </span>
-              </div>
-              <div
-                className={`h-px flex-1 ${
-                  step >= 2 ? "bg-primary" : "bg-slate-200 dark:bg-slate-800"
-                } mx-4 -mt-6`}
-              ></div>
-              <div className="flex flex-col items-center gap-2">
+
                 <div
-                  className={`size-10 rounded-full ${
+                  className={`h-0.5 flex-1 mx-4 ${
                     step >= 2
-                      ? "bg-primary text-white"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600"
                       : "bg-slate-200 dark:bg-slate-800"
-                  } flex items-center justify-center font-bold`}
-                >
-                  2
+                  } transition-all duration-500`}
+                ></div>
+
+                <div className="flex flex-col items-center gap-3 flex-1">
+                  <div
+                    className={`size-12 rounded-full ${
+                      step >= 2
+                        ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-slate-200 dark:bg-slate-800 text-slate-400"
+                    } flex items-center justify-center font-bold text-lg transition-all duration-300`}
+                  >
+                    {step > 2 ? (
+                      <svg
+                        className="w-6 h-6"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    ) : (
+                      "2"
+                    )}
+                  </div>
+                  <div className="text-center">
+                    <p
+                      className={`text-xs font-bold uppercase tracking-wider ${
+                        step >= 2 ? "text-blue-600" : "text-slate-400"
+                      }`}
+                    >
+                      Payment
+                    </p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      Secure payment
+                    </p>
+                  </div>
                 </div>
-                <span
-                  className={`text-xs font-semibold uppercase tracking-wider ${
-                    step >= 2 ? "text-primary" : "text-slate-400"
-                  }`}
-                >
-                  Payment
-                </span>
-              </div>
-              <div
-                className={`h-px flex-1 ${
-                  step >= 3 ? "bg-primary" : "bg-slate-200 dark:bg-slate-800"
-                } mx-4 -mt-6`}
-              ></div>
-              <div className="flex flex-col items-center gap-2">
+
                 <div
-                  className={`size-10 rounded-full ${
+                  className={`h-0.5 flex-1 mx-4 ${
                     step >= 3
-                      ? "bg-primary text-white"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600"
                       : "bg-slate-200 dark:bg-slate-800"
-                  } flex items-center justify-center font-bold`}
-                >
-                  3
+                  } transition-all duration-500`}
+                ></div>
+
+                <div className="flex flex-col items-center gap-3 flex-1">
+                  <div
+                    className={`size-12 rounded-full ${
+                      step >= 3
+                        ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30"
+                        : "bg-slate-200 dark:bg-slate-800 text-slate-400"
+                    } flex items-center justify-center font-bold text-lg transition-all duration-300`}
+                  >
+                    3
+                  </div>
+                  <div className="text-center">
+                    <p
+                      className={`text-xs font-bold uppercase tracking-wider ${
+                        step >= 3 ? "text-blue-600" : "text-slate-400"
+                      }`}
+                    >
+                      Complete
+                    </p>
+                    <p className="text-[10px] text-slate-500 mt-0.5">
+                      Order placed
+                    </p>
+                  </div>
                 </div>
-                <span
-                  className={`text-xs font-semibold uppercase tracking-wider ${
-                    step >= 3 ? "text-primary" : "text-slate-400"
-                  }`}
-                >
-                  Complete
-                </span>
               </div>
             </div>
 
@@ -224,14 +296,14 @@ export default function CheckoutPage() {
                   }}
                 >
                   <div>
-                    <label className="block text-sm font-semibold mb-2">
+                    <label className="block text-sm font-semibold mb-2 text-slate-900 dark:text-white">
                       Contact Email *
                     </label>
                     <input
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className="w-full bg-background-light dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all"
+                      className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all placeholder:text-slate-400"
                       placeholder="email@example.com"
                       type="email"
                       required
@@ -252,59 +324,61 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="pt-4">
-                    <h3 className="text-lg font-bold mb-4">Shipping Address</h3>
+                    <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">
+                      Shipping Address
+                    </h3>
                     <div className="grid grid-cols-2 gap-4">
                       <div className="col-span-2">
-                        <label className="block text-sm font-semibold mb-2">
+                        <label className="block text-sm font-semibold mb-2 text-slate-900 dark:text-white">
                           Full Name *
                         </label>
                         <input
                           name="fullName"
                           value={formData.fullName}
                           onChange={handleInputChange}
-                          className="w-full bg-background-light dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none placeholder:text-slate-400"
                           placeholder="John Doe"
                           type="text"
                           required
                         />
                       </div>
                       <div className="col-span-2">
-                        <label className="block text-sm font-semibold mb-2">
+                        <label className="block text-sm font-semibold mb-2 text-slate-900 dark:text-white">
                           Address *
                         </label>
                         <input
                           name="address"
                           value={formData.address}
                           onChange={handleInputChange}
-                          className="w-full bg-background-light dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none placeholder:text-slate-400"
                           placeholder="123 Main Street"
                           type="text"
                           required
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-2">
+                        <label className="block text-sm font-semibold mb-2 text-slate-900 dark:text-white">
                           City *
                         </label>
                         <input
                           name="city"
                           value={formData.city}
                           onChange={handleInputChange}
-                          className="w-full bg-background-light dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none placeholder:text-slate-400"
                           placeholder="New York"
                           type="text"
                           required
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-semibold mb-2">
+                        <label className="block text-sm font-semibold mb-2 text-slate-900 dark:text-white">
                           Postal Code *
                         </label>
                         <input
                           name="postalCode"
                           value={formData.postalCode}
                           onChange={handleInputChange}
-                          className="w-full bg-background-light dark:bg-background-dark border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary outline-none"
+                          className="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none placeholder:text-slate-400"
                           placeholder="10001"
                           type="text"
                           required
@@ -314,14 +388,16 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="pt-4">
-                    <h3 className="text-lg font-bold mb-4">Shipping Method</h3>
+                    <h3 className="text-lg font-bold mb-4 text-slate-900 dark:text-white">
+                      Shipping Method
+                    </h3>
                     <div className="space-y-3">
                       <label
                         className={`flex items-center justify-between p-4 border-2 ${
                           formData.shippingMethod === "priority"
-                            ? "border-primary bg-primary/5"
-                            : "border-slate-200 dark:border-slate-800"
-                        } rounded-xl cursor-pointer`}
+                            ? "border-blue-600 bg-blue-50 dark:bg-blue-900/20"
+                            : "border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600"
+                        } rounded-xl cursor-pointer transition-all`}
                       >
                         <div className="flex items-center gap-3">
                           <input
@@ -329,24 +405,28 @@ export default function CheckoutPage() {
                             value="priority"
                             checked={formData.shippingMethod === "priority"}
                             onChange={handleInputChange}
-                            className="text-primary focus:ring-primary"
+                            className="text-blue-600 focus:ring-blue-500"
                             type="radio"
                           />
                           <div>
-                            <p className="font-bold">Priority Shipping</p>
-                            <p className="text-sm text-slate-500">
+                            <p className="font-bold text-slate-900 dark:text-white">
+                              Priority Shipping
+                            </p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
                               Delivered within 24-48 hours
                             </p>
                           </div>
                         </div>
-                        <span className="font-mono font-bold">$15.00</span>
+                        <span className="font-mono font-bold text-slate-900 dark:text-white">
+                          $15.00
+                        </span>
                       </label>
                       <label
                         className={`flex items-center justify-between p-4 border-2 ${
                           formData.shippingMethod === "standard"
-                            ? "border-primary bg-primary/5"
-                            : "border-slate-200 dark:border-slate-800"
-                        } rounded-xl cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors`}
+                            ? "border-blue-600 bg-blue-50 dark:bg-blue-900/20"
+                            : "border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-600"
+                        } rounded-xl cursor-pointer transition-all`}
                       >
                         <div className="flex items-center gap-3">
                           <input
@@ -354,26 +434,30 @@ export default function CheckoutPage() {
                             value="standard"
                             checked={formData.shippingMethod === "standard"}
                             onChange={handleInputChange}
-                            className="text-primary focus:ring-primary"
+                            className="text-blue-600 focus:ring-blue-500"
                             type="radio"
                           />
                           <div>
-                            <p className="font-bold">Standard Delivery</p>
-                            <p className="text-sm text-slate-500">
+                            <p className="font-bold text-slate-900 dark:text-white">
+                              Standard Delivery
+                            </p>
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
                               3-5 business days
                             </p>
                           </div>
                         </div>
-                        <span className="font-mono font-bold">Free</span>
+                        <span className="font-mono font-bold text-slate-900 dark:text-white">
+                          Free
+                        </span>
                       </label>
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 group"
+                    className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group"
                   >
-                    Continue to Payment
+                    <span>Continue to Payment</span>
                     <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
                       arrow_forward
                     </span>
@@ -403,7 +487,7 @@ export default function CheckoutPage() {
                     <button
                       onClick={handlePayment}
                       disabled={loading}
-                      className="flex-1 bg-primary hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50"
+                      className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:hover:scale-100"
                     >
                       {loading ? "Processing..." : "Pay with Stripe"}
                     </button>
@@ -411,7 +495,7 @@ export default function CheckoutPage() {
 
                   <button
                     onClick={() => setStep(1)}
-                    className="w-full text-slate-600 dark:text-slate-400 hover:text-primary py-3"
+                    className="w-full text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 py-3 font-medium transition-colors"
                   >
                     ← Back to Shipping
                   </button>
