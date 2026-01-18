@@ -25,9 +25,9 @@ const {
 let stripe = null;
 if (process.env.STRIPE_SECRET_KEY) {
   stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-  console.log("✅ Stripe initialized");
+  console.log(" Stripe initialized");
 } else {
-  console.log("⚠️  Stripe not configured - payment features disabled");
+  console.log("  Stripe not configured - payment features disabled");
 }
 
 const app = express();
@@ -35,20 +35,20 @@ const PORT = process.env.PORT || 3001;
 
 // Rate limiting configuration
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
+  windowMs: 15 * 60 * 1000,
+  max: 100,
   message: {
     error: "Too many requests",
     message: "Too many requests from this IP, please try again later.",
   },
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  standardHeaders: true, 
+  legacyHeaders: false,
 });
 
 // Stricter rate limit for write operations
 const writeLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20, // Limit each IP to 20 write requests per windowMs
+  windowMs: 15 * 60 * 1000, 
+  max: 20, 
   message: {
     error: "Too many requests",
     message: "Too many write requests from this IP, please try again later.",

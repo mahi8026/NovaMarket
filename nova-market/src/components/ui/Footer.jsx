@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Marquee from "./Marquee";
 
@@ -28,13 +30,15 @@ export default function Footer() {
                 Nova Market
               </span>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-white text-sm leading-relaxed">
               Curating the finest products for professionals, creators, and
               enthusiasts. Quality you can trust, performance you can feel.
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="size-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
                 aria-label="Facebook"
               >
@@ -47,7 +51,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="size-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
                 aria-label="Twitter"
               >
@@ -60,7 +66,9 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="size-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-primary transition-colors"
                 aria-label="Instagram"
               >
@@ -77,28 +85,28 @@ export default function Footer() {
 
           {/* Shop */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-bold text-lg mb-2">Shop</h4>
+            <h4 className="font-bold text-lg mb-2 text-white">Shop</h4>
             <Link
               href="/items"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+              className="text-white hover:text-blue-300 transition-colors text-sm"
             >
               All Products
             </Link>
             <Link
               href="/items"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+              className="text-white hover:text-blue-300 transition-colors text-sm"
             >
               New Arrivals
             </Link>
             <Link
               href="/items"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+              className="text-white hover:text-blue-300 transition-colors text-sm"
             >
               Best Sellers
             </Link>
             <Link
               href="/items/add"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+              className="text-white hover:text-blue-300 transition-colors text-sm"
             >
               Sell on Nova
             </Link>
@@ -106,60 +114,60 @@ export default function Footer() {
 
           {/* Support */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-bold text-lg mb-2">Support</h4>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            <h4 className="font-bold text-lg mb-2 text-white">Support</h4>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Help Center
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Shipping & Delivery
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Returns
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Contact Us
-            </a>
+            </button>
           </div>
 
           {/* Company */}
           <div className="flex flex-col gap-4">
-            <h4 className="font-bold text-lg mb-2">Company</h4>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            <h4 className="font-bold text-lg mb-2 text-white">Company</h4>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               About Us
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Careers
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Privacy Policy
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors text-sm"
+            </button>
+            <button
+              className="text-white hover:text-blue-300 transition-colors text-sm text-left"
+              onClick={() => {}}
             >
               Terms of Service
-            </a>
+            </button>
           </div>
         </div>
 
@@ -178,7 +186,7 @@ export default function Footer() {
             ].map((text, index) => (
               <div
                 key={index}
-                className="text-gray-400 font-medium whitespace-nowrap px-8 hover:text-white transition-colors cursor-pointer"
+                className="text-white font-medium whitespace-nowrap px-8 hover:text-blue-300 transition-colors cursor-pointer"
               >
                 {text}
               </div>
@@ -187,14 +195,14 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
+          <p className="text-white text-sm">
             © {new Date().getFullYear()} Nova Market Inc. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <span className="text-gray-500 text-sm font-mono cursor-pointer hover:text-white transition-colors">
+            <span className="text-white text-sm font-mono cursor-pointer hover:text-blue-300 transition-colors">
               USD
             </span>
-            <span className="text-gray-500 text-sm font-mono cursor-pointer hover:text-white transition-colors">
+            <span className="text-white text-sm font-mono cursor-pointer hover:text-blue-300 transition-colors">
               EN
             </span>
           </div>

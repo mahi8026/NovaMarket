@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { FaBolt, FaTrophy, FaShieldAlt, FaCrown, FaFire } from "react-icons/fa";
 import { MdTrendingUp } from "react-icons/md";
 import { useState, useEffect } from "react";
-import SparkleButton from "@/components/ui/SparkleButton";
+
 import Marquee from "@/components/ui/Marquee";
 
 export default function Home() {
@@ -37,30 +38,30 @@ export default function Home() {
               x: mousePosition.x * 0.02,
               y: mousePosition.y * 0.02,
             }}
-            className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
+            className="absolute top-20 left-10 w-32 h-32 bg-linear-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
           />
           <motion.div
             animate={{
               x: mousePosition.x * -0.03,
               y: mousePosition.y * -0.03,
             }}
-            className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-xl"
+            className="absolute top-40 right-20 w-24 h-24 bg-linear-to-br from-pink-400/20 to-orange-400/20 rounded-full blur-xl"
           />
           <motion.div
             animate={{
               x: mousePosition.x * 0.01,
               y: mousePosition.y * 0.01,
             }}
-            className="absolute bottom-40 left-1/3 w-40 h-40 bg-gradient-to-br from-teal-400/20 to-green-400/20 rounded-full blur-xl"
+            className="absolute bottom-40 left-1/3 w-40 h-40 bg-linear-to-br from-teal-400/20 to-green-400/20 rounded-full blur-xl"
           />
         </div>
       )}
 
       {/* Hero Section with 3D Elements */}
-      <section className="relative pt-[72px] min-h-screen flex items-center overflow-hidden text-white">
+      <section className="relative pt-18 min-h-screen flex items-center overflow-hidden text-white">
         {/* Animated Background */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-95"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-95"></div>
 
           {/* Animated Geometric Shapes */}
           <motion.div
@@ -126,13 +127,13 @@ export default function Home() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="relative"
               >
-                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-pink-500/20 to-purple-500/20 border border-white/20 backdrop-blur-xl">
+                <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-linear-to-r from-pink-500/20 to-purple-500/20 border border-white/20 backdrop-blur-xl">
                   <motion.div
                     animate={{ scale: [1, 1.2, 1] }}
                     transition={{ duration: 2, repeat: Infinity }}
-                    className="flex h-3 w-3 rounded-full bg-gradient-to-r from-pink-400 to-purple-400"
+                    className="flex h-3 w-3 rounded-full bg-linear-to-r from-pink-400 to-purple-400"
                   />
-                  <span className="text-sm font-bold text-white tracking-wide uppercase bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+                  <span className="text-sm font-bold text-transparent tracking-wide uppercase bg-linear-to-r from-pink-300 to-purple-300 bg-clip-text">
                     🚀 Revolutionary Shopping Experience
                   </span>
                 </div>
@@ -156,7 +157,7 @@ export default function Home() {
                   initial={{ width: 0 }}
                   animate={{ width: "100%" }}
                   transition={{ duration: 1.5, delay: 0.8 }}
-                  className="h-1 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full mb-8"
+                  className="h-1 bg-linear-to-r from-pink-500 to-purple-500 rounded-full mb-8"
                 />
               </motion.div>
 
@@ -181,8 +182,11 @@ export default function Home() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Link href="/items">
-                    <SparkleButton>Explore Now</SparkleButton>
+                  <Link
+                    href="/items"
+                    className="inline-block px-8 py-3 bg-linear-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
+                  >
+                    Explore Now
                   </Link>
                 </motion.div>
 
@@ -212,12 +216,14 @@ export default function Home() {
                 {/* Main Product Card */}
                 <motion.div
                   whileHover={{ rotateY: 10, rotateX: 5 }}
-                  className="relative z-10 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-2xl border border-white/20 p-8 rounded-3xl shadow-2xl transform-gpu"
+                  className="relative z-10 bg-linear-to-br from-white/20 to-white/5 backdrop-blur-2xl border border-white/20 p-8 rounded-3xl shadow-2xl transform-gpu"
                 >
-                  <img
+                  <Image
                     alt="Premium tech products"
                     className="rounded-2xl shadow-2xl max-w-md w-full object-cover aspect-4/3"
                     src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=800&q=80"
+                    width={800}
+                    height={600}
                   />
 
                   {/* Floating Stats */}
@@ -225,7 +231,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.2 }}
-                    className="absolute -top-6 -left-6 bg-gradient-to-r from-green-400 to-emerald-500 p-4 rounded-2xl shadow-xl"
+                    className="absolute -top-6 -left-6 bg-linear-to-r from-green-400 to-emerald-500 p-4 rounded-2xl shadow-xl"
                   >
                     <div className="flex items-center gap-3 text-white">
                       <MdTrendingUp className="text-2xl" />
@@ -242,7 +248,7 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, delay: 1.4 }}
-                    className="absolute -bottom-6 -right-6 bg-gradient-to-r from-orange-400 to-red-500 p-4 rounded-2xl shadow-xl"
+                    className="absolute -bottom-6 -right-6 bg-linear-to-r from-orange-400 to-red-500 p-4 rounded-2xl shadow-xl"
                   >
                     <div className="flex items-center gap-3 text-white">
                       <FaCrown className="text-2xl" />
@@ -266,9 +272,9 @@ export default function Home() {
                   }}
                   className="absolute inset-0 pointer-events-none"
                 >
-                  <div className="absolute -top-8 left-1/2 w-6 h-6 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full shadow-lg" />
-                  <div className="absolute top-1/2 -right-8 w-4 h-4 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full shadow-lg" />
-                  <div className="absolute -bottom-8 left-1/3 w-5 h-5 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full shadow-lg" />
+                  <div className="absolute -top-8 left-1/2 w-6 h-6 bg-linear-to-r from-blue-400 to-cyan-400 rounded-full shadow-lg" />
+                  <div className="absolute top-1/2 -right-8 w-4 h-4 bg-linear-to-r from-pink-400 to-purple-400 rounded-full shadow-lg" />
+                  <div className="absolute -bottom-8 left-1/3 w-5 h-5 bg-linear-to-r from-yellow-400 to-orange-400 rounded-full shadow-lg" />
                 </motion.div>
               </div>
             </motion.div>
@@ -277,7 +283,7 @@ export default function Home() {
       </section>
 
       {/* Animated Brand Marquee */}
-      <section className="py-8 bg-black/5 backdrop-blur-sm border-y border-white/10">
+      <section className="py-8 bg-black/5 text-white backdrop-blur-sm border-y border-white/10">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0 }}
@@ -299,7 +305,7 @@ export default function Home() {
               ].map((brand) => (
                 <div
                   key={brand}
-                  className="text-3xl font-bold text-black/60 hover:text-blue-400 transition-all duration-300 cursor-pointer whitespace-nowrap px-8"
+                  className="text-3xl font-bold text-white/80 hover:text-white transition-all duration-300 cursor-pointer whitespace-nowrap px-8"
                 >
                   {brand}
                 </div>
@@ -310,10 +316,10 @@ export default function Home() {
       </section>
 
       {/* Creative Features Section */}
-      <section className="py-32 bg-gradient-to-b from-slate-900 to-gray-900 relative overflow-hidden text-white">
+      <section className="py-32 bg-linear-to-b from-slate-900 to-gray-900 relative overflow-hidden text-white">
         {/* Enhanced Background Effects */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+          <div className="absolute inset-0 bg-linear-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
@@ -333,7 +339,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-5xl md:text-6xl font-black mb-6 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent drop-shadow-2xl">
+            <h2 className="text-5xl md:text-6xl font-black mb-6 bg-linear-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent drop-shadow-2xl">
               Why Choose Us?
             </h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-medium">
@@ -377,15 +383,15 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: feature.delay }}
                 className="group relative"
               >
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 h-full shadow-2xl hover:shadow-purple-500/20 transition-all duration-300">
+                <div className="relative bg-linear-to-br from-white/10 to-white/5 backdrop-blur-xl border border-white/20 rounded-3xl p-8 h-full shadow-2xl hover:shadow-purple-500/20 transition-all duration-300\">
                   <motion.div
                     whileHover={{ rotate: 360, scale: 1.2 }}
                     transition={{ duration: 0.6 }}
-                    className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center text-white mb-6 shadow-2xl`}
+                    className={`w-20 h-20 rounded-2xl bg-linear-to-br ${feature.gradient} flex items-center justify-center text-white mb-6 shadow-2xl`}
                   >
                     {feature.icon}
                   </motion.div>
-                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-gradient-to-r group-hover:from-blue-200 group-hover:to-purple-200 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                  <h3 className="text-2xl font-bold mb-4 text-white group-hover:bg-linear-to-r group-hover:from-blue-200 group-hover:to-purple-200 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
                     {feature.title}
                   </h3>
                   <p className="text-white/80 leading-relaxed font-medium">
@@ -399,7 +405,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Marquee */}
-      <section className="py-16 bg-gradient-to-r from-purple-900/20 to-pink-900/20 overflow-hidden">
+      <section className="py-16 bg-linear-to-r from-purple-900/20 to-pink-900/20 overflow-hidden">
         <div className="mb-8 text-center">
           <h3 className="text-3xl font-bold text-white mb-4">
             What Our Customers Say
@@ -433,7 +439,7 @@ export default function Home() {
             ].map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-[350px] border border-white/20"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-87.5 border border-white/20"
               >
                 <p className="text-white/90 mb-3 italic">
                   &ldquo;{testimonial.text}&rdquo;
@@ -473,7 +479,7 @@ export default function Home() {
             ].map((testimonial, index) => (
               <div
                 key={index}
-                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-[350px] border border-white/20"
+                className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 mx-4 min-w-87.5 border border-white/20"
               >
                 <p className="text-white/90 mb-3 italic">
                   &ldquo;{testimonial.text}&rdquo;
@@ -502,7 +508,7 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-4 text-white px-8 whitespace-nowrap"
+              className="flex items-center gap-4 text-black px-8 whitespace-nowrap"
             >
               <span className="text-3xl">{item.icon}</span>
               <div>
@@ -517,7 +523,7 @@ export default function Home() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-32 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden text-white">
+      <section className="py-32 bg-linear-to-br from-indigo-900 via-purple-900 to-pink-900 relative overflow-hidden text-white">
         {/* Static Particles - No Math.random() */}
         {mounted && (
           <div className="absolute inset-0">
@@ -564,7 +570,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-6xl md:text-7xl font-black mb-8 bg-gradient-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
+              className="text-6xl md:text-7xl font-black mb-8 bg-linear-to-r from-white via-blue-200 to-purple-200 bg-clip-text text-transparent"
             >
               Ready to Experience the Future?
             </motion.h2>
@@ -590,10 +596,11 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link href="/items">
-                  <SparkleButton className="text-xl text-white px-12 py-6">
-                    Start Shopping Now
-                  </SparkleButton>
+                <Link
+                  href="/items"
+                  className="inline-block px-12 py-4 bg-linear-to-r from-blue-600 to-indigo-600 text-white text-lg font-semibold rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-indigo-700 transition-all duration-300"
+                >
+                  Start Shopping Now
                 </Link>
               </motion.div>
 

@@ -61,7 +61,7 @@ const SparkleButton = forwardRef(
             />
           </svg>
 
-          <span className="text">{children}</span>
+          {children}
         </button>
 
         <div className="bodydrop"></div>

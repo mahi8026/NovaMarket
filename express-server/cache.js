@@ -1,8 +1,4 @@
-/**
- * Redis Cache Module for Nova Marketplace API
- * Provides caching functionality to improve API performance
- * Optional - Falls back gracefully if Redis is not available
- */
+
 
 const redis = require("redis");
 
@@ -11,10 +7,9 @@ let isRedisConnected = false;
 
 /**
  * Initialize Redis client
- * @returns {Promise<boolean>} True if connected, false otherwise
+ * @returns {Promise<boolean>}
  */
 async function initializeRedis() {
-  // Skip if Redis URL is not configured
   if (!process.env.REDIS_URL) {
     console.log("ℹ️  Redis not configured - caching disabled");
     return false;
@@ -27,7 +22,7 @@ async function initializeRedis() {
         connectTimeout: 5000,
         reconnectStrategy: (retries) => {
           if (retries > 3) {
-            console.log("❌ Redis connection failed after 3 retries");
+            console.log(" Redis connection failed after 3 retries");
             return new Error("Redis connection failed");
           }
           return Math.min(retries * 100, 3000);
@@ -36,25 +31,25 @@ async function initializeRedis() {
     });
 
     redisClient.on("error", (err) => {
-      console.error("❌ Redis Client Error:", err.message);
+      console.error(" Redis Client Error:", err.message);
       isRedisConnected = false;
     });
 
     redisClient.on("connect", () => {
-      console.log("✅ Redis connected successfully");
+      console.log(" Redis connected successfully");
       isRedisConnected = true;
     });
 
     redisClient.on("disconnect", () => {
-      console.log("⚠️  Redis disconnected");
+      console.log("  Redis disconnected");
       isRedisConnected = false;
     });
 
     await redisClient.connect();
     return true;
   } catch (error) {
-    console.error("❌ Failed to initialize Redis:", error.message);
-    console.log("ℹ️  Continuing without cache");
+    console.error(" Failed to initialize Redis:", error.message);
+    console.log("  Continuing without cache");
     redisClient = null;
     isRedisConnected = false;
     return false;
@@ -62,9 +57,9 @@ async function initializeRedis() {
 }
 
 /**
- * Get cached data
- * @param {string} key - Cache key
- * @returns {Promise<any|null>} Cached data or null
+ 
+ * @param {string} key 
+ * @returns {Promise<any|null>} 
  */
 async function getCache(key) {
   if (!isRedisConnected || !redisClient) {
@@ -74,23 +69,22 @@ async function getCache(key) {
   try {
     const data = await redisClient.get(key);
     if (data) {
-      console.log(`✅ Cache hit: ${key}`);
+      console.log(` Cache hit: ${key}`);
       return JSON.parse(data);
     }
-    console.log(`❌ Cache miss: ${key}`);
+    console.log(` Cache miss: ${key}`);
     return null;
   } catch (error) {
-    console.error(`❌ Cache get error for ${key}:`, error.message);
+    console.error(` Cache get error for ${key}:`, error.message);
     return null;
   }
 }
 
 /**
  * Set cached data
- * @param {string} key - Cache key
- * @param {any} data - Data to cache
- * @param {number} ttl - Time to live in seconds (default: 300 = 5 minutes)
- * @returns {Promise<boolean>} True if successful
+ * @param {string} key 
+ * @param {any} data 
+ * @returns {Promise<boolean>} 
  */
 async function setCache(key, data, ttl = 300) {
   if (!isRedisConnected || !redisClient) {
@@ -99,10 +93,10 @@ async function setCache(key, data, ttl = 300) {
 
   try {
     await redisClient.setEx(key, ttl, JSON.stringify(data));
-    console.log(`✅ Cache set: ${key} (TTL: ${ttl}s)`);
+    console.log(` Cache set: ${key} (TTL: ${ttl}s)`);
     return true;
   } catch (error) {
-    console.error(`❌ Cache set error for ${key}:`, error.message);
+    console.error(` Cache set error for ${key}:`, error.message);
     return false;
   }
 }
@@ -110,7 +104,7 @@ async function setCache(key, data, ttl = 300) {
 /**
  * Delete cached data
  * @param {string} key - Cache key
- * @returns {Promise<boolean>} True if successful
+ * @returns {Promise<boolean>} 
  */
 async function deleteCache(key) {
   if (!isRedisConnected || !redisClient) {
@@ -119,10 +113,10 @@ async function deleteCache(key) {
 
   try {
     await redisClient.del(key);
-    console.log(`✅ Cache deleted: ${key}`);
+    console.log(` Cache deleted: ${key}`);
     return true;
   } catch (error) {
-    console.error(`❌ Cache delete error for ${key}:`, error.message);
+    console.error(` Cache delete error for ${key}:`, error.message);
     return false;
   }
 }
@@ -141,12 +135,12 @@ async function deleteCachePattern(pattern) {
     const keys = await redisClient.keys(pattern);
     if (keys.length > 0) {
       await redisClient.del(keys);
-      console.log(`✅ Cache deleted: ${keys.length} keys matching ${pattern}`);
+      console.log(` Cache deleted: ${keys.length} keys matching ${pattern}`);
     }
     return true;
   } catch (error) {
     console.error(
-      `❌ Cache delete pattern error for ${pattern}:`,
+      ` Cache delete pattern error for ${pattern}:`,
       error.message
     );
     return false;
@@ -164,10 +158,10 @@ async function clearCache() {
 
   try {
     await redisClient.flushAll();
-    console.log("✅ All cache cleared");
+    console.log("All cache cleared");
     return true;
   } catch (error) {
-    console.error("❌ Cache clear error:", error.message);
+    console.error(" Cache clear error:", error.message);
     return false;
   }
 }
@@ -179,9 +173,9 @@ async function closeRedis() {
   if (redisClient) {
     try {
       await redisClient.quit();
-      console.log("✅ Redis connection closed");
+      console.log(" Redis connection closed");
     } catch (error) {
-      console.error("❌ Error closing Redis:", error.message);
+      console.error("Error closing Redis:", error.message);
     }
   }
 }
