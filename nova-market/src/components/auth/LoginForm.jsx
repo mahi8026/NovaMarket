@@ -230,10 +230,10 @@ export default function LoginForm() {
         </p>
         <div className="text-sm text-slate-600 space-y-1 text-center">
           <p>
-            <span className="font-medium">Email:</span> admin@novamarket.com
+            <span className="font-medium">Email:</span> admin07@novamarket.com
           </p>
           <p>
-            <span className="font-medium">Password:</span> admin123
+            <span className="font-medium">Password:</span> Admin123
           </p>
         </div>
       </div>

@@ -7,8 +7,8 @@
  * Mock credentials for development
  */
 export const MOCK_CREDENTIALS = {
-  email: "admin@novamarket.com",
-  password: "admin123",
+  email: "admin07@novamarket.com",
+  password: "Admin123",
 };
 
 /**
