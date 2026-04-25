@@ -405,9 +405,9 @@ export default function Home() {
       </section>
 
       {/* Testimonials Marquee */}
-      <section className="py-16 bg-linear-to-r from-purple-900/20 to-pink-900/20 overflow-hidden">
+      <section className="py-16 bg-linear-to-r from-purple-950 via-slate-900 to-pink-950 overflow-hidden">
         <div className="mb-8 text-center">
-          <h3 className="text-3xl font-bold text-white mb-4">
+          <h3 className="text-3xl font-bold bg-linear-to-r from-purple-300 via-pink-200 to-white bg-clip-text text-transparent mb-4">
             What Our Customers Say
           </h3>
         </div>
@@ -494,7 +494,7 @@ export default function Home() {
       </section>
 
       {/* Stats Marquee */}
-      <section className="py-12 bg-black/20">
+      <section className="py-12 bg-slate-900 border-y border-white/10">
         <Marquee speed="fast" pauseOnHover={false}>
           {[
             { icon: "🚀", stat: "50K+", label: "Happy Customers" },
@@ -508,7 +508,7 @@ export default function Home() {
           ].map((item, index) => (
             <div
               key={index}
-              className="flex items-center gap-4 text-black px-8 whitespace-nowrap"
+              className="flex items-center gap-4 px-8 whitespace-nowrap"
             >
               <span className="text-3xl">{item.icon}</span>
               <div>
